@@ -106,7 +106,7 @@ This project is licensed under the **MIT License**.
 ## 📧 Contact
 For any questions or issues, feel free to reach out:
 - **GitHub Issues**: [Open an Issue](https://github.com/Sandeep992299/Railway_diliver_and_stock_management_system/issues)
-- **Email**: your-email@example.com
+- **Email**: dissanayakesandeep@gmail.com
 
 ---
 🚆 **Efficient Railway Parcel & Stock Management at Your Fingertips!** 📦
