@@ -1,0 +1,237 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding-left: 250px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgb(45, 50, 52);
+    align-content: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-family: sans-serif;
+  }
+  
+  
+  /* Sidebar Navigation */
+  .sidebar {
+    width: 250px;
+    background:linear-gradient(white,rgb(113, 225, 124));
+    color: #000000;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo {
+    padding: 20px;
+  }
+  
+  .logo-img {
+    width: 100px;
+    height: auto;
+  }
+  
+  .sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar nav ul li {
+    padding: 10px 20px;
+  }
+  
+  .sidebar nav ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+  }
+  .sidebar nav ul :hover{
+    color: rgb(207, 28, 28);
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    padding-left: 5px;
+  }
+  .auth-buttons{
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px;
+    background-color: #4CAF50;
+    color: white;
+    align-content: center;
+    text-align: center;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: rgb(45, 50, 52);
+    padding: 50px 0;
+    margin-left: 250px;
+    margin-bottom: 0;
+    width: calc(100% - 250px);
+  }
+  
+  .footer .container {
+    max-width: 1170px;
+    margin: 0 0;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .footer-col {
+    width: 25%;
+    padding: 0 15px;
+  }
+  
+  .footer-col h3 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 35px;
+    font-weight: bolder;
+  }
+  
+  .footer-col ul h4 {
+    font-size: 16px;
+    color: #bbbbbb;
+    margin-bottom: 10px;
+  }
+  
+  .footer-col ul li a {
+    color: #bbbbbb;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-col ul li a:hover {
+    color: #25c768;
+    padding-left: 10px;
+  }
+  
+  .social-links i {
+    width: 40px;
+    height: 35px;
+    margin-left: 2px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .copyright {
+    font-size: 10px;
+    color: #000;
+    background-color: #25c768;
+    text-align: center;
+    padding: 0px ;
+    margin-bottom: 0;
+  }
+  .container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+
+  /*tracking*/
+  .tracking-box {
+    background: linear-gradient(135deg, #e0f7fa, #bcd5d8); /* Light gradient background */
+    border: 2px solid #4CAF50; /* Green border */
+    border-radius: 12px;
+    padding: 30px;
+    margin: 20px auto;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tracking-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tracking-box h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #00796b; /* Darker green */
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tracking-box input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #4CAF50;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.tracking-box input:focus {
+    border-color: #00796b; /* Darker green on focus */
+}
+
+.tracking-box .btn {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tracking-box .btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.status-label {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.status-label.in-transit {
+    color: #ff9800; /* Orange for In Transit */
+}
+
+.status-label.delivered {
+    color: #4CAF50; /* Green for Delivered */
+}
+
+.status-label.at-station {
+    color: #2196F3; /* Blue for At Station */
+}
+
+.status-label.not-found {
+    color: #f44336; /* Red for Not Found */
+}
+  
+  
