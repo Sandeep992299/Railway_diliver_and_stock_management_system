@@ -13,12 +13,13 @@ if (isset($_POST["create"])) {
     $status = mysqli_real_escape_string($conn, $_POST["status"]);
 
     $insert = "INSERT INTO parcel (parcel_id, sender_nic, rec_nic, rec_name, rec_phone, pickup, dropoff, weight, status) 
-                 VALUES ('$id', '$sender_nic', '$rec_nic', '$rec_name', '$rec_phone', '$pickup', '$dropoff', '$weight', '$status')";
+                 VALUES ('$parcel_id', '$sender_nic', '$rec_nic', '$rec_name', '$rec_phone', '$pickup', '$dropoff', '$weight', '$status')";
 
     if (mysqli_query($conn, $insert)) {
         session_start();
         $_SESSION["create"] = "Parcel Added Successfully!";
         header("Location: customer_parcel.php");
+        exit();
     } else {
         die("Something went wrong: " . mysqli_error($conn));
     }
@@ -50,6 +51,7 @@ if (isset($_POST["edit"])) {
         session_start();
         $_SESSION["update"] = "Parcel Updated Successfully!";
         header("Location: customer_parcel.php");
+        exit();
     } else {
         die("Something went wrong: " . mysqli_error($conn));
     }

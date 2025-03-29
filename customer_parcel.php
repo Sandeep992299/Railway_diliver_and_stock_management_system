@@ -1,3 +1,28 @@
+<?php 
+include 'auth_check.php'; 
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $errors = [];
+
+    // Validate each input field
+    if (empty($_POST['id'])) $errors[] = "Parcel ID is required.";
+    if (empty($_POST['sender_id'])) $errors[] = "Sender NIC is required.";
+    if (empty($_POST['receiver_id'])) $errors[] = "Receiver NIC is required.";
+    if (empty($_POST['receiver'])) $errors[] = "Receiver Name is required.";
+    if (empty($_POST['tel'])) $errors[] = "Phone Number is required.";
+    if (empty($_POST['pickup'])) $errors[] = "Pickup Location is required.";
+    if (empty($_POST['drop'])) $errors[] = "Drop Station is required.";
+    if (empty($_POST['weight'])) $errors[] = "Weight is required.";
+    if (empty($_POST['status'])) $errors[] = "Status selection is required.";
+
+    if (empty($errors)) {
+        // Process form data (e.g., save to database)
+        echo "<script>alert('Parcel added successfully!');</script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +31,10 @@
     <title>Customer Parcel Management</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="customer_parcel.css">
-    <link rel="stylesheet" href="styles.css"> <!-- style for QR Code Generator -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="logo">
             <img src="images/1.png" alt="Logo" class="logo-img">
@@ -31,16 +55,24 @@
         </nav>
     </aside>
 
-    <!-- Main Content -->
     <div class="main-content">
         <header>
             <h1>Customer Parcel Management</h1>
         </header>
 
-        <!-- Customer Parcel Management Section -->
         <div class="container">
-            
-            <form id="packageForm">
+            <?php
+            // Display errors if there are any
+            if (!empty($errors)) {
+                echo '<div class="error-messages">';
+                foreach ($errors as $error) {
+                    echo '<p class="error">'.$error.'</p>';
+                }
+                echo '</div>';
+            }
+            ?>
+
+            <form id="packageForm" method="POST" onsubmit="return validateForm()">
                 <h1>Generate QR Code for Package</h1>
                 
                 <label for="parcel_id">Parcel ID:</label>
@@ -88,7 +120,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <section class="container">
             <section class="row">
@@ -126,8 +157,20 @@
         </section>
     </footer>
 
-    <!-- QR Code library and script -->
     <script src="qrcode.min.js"></script>
-    <script src="script.js"></script> <!-- JavaScript for QR Code generation -->
+    <script src="script.js"></script>
+
+    <script>
+        function validateForm() {
+            let requiredFields = ["id", "sender_id", "receiver_id", "receiver", "tel", "pickup", "drop", "weight", "status"];
+            for (let field of requiredFields) {
+                if (document.getElementById(field).value.trim() === "") {
+                    alert("Please fill all fields before submitting.");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
