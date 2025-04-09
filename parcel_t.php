@@ -12,7 +12,7 @@
         <header class="header">
             <h1>Customer Parcel List</h1>
             <div>
-                <a href="admin_page.php">Back</a>
+                <a href="main.php">Back</a>
             </div>
         </header>
         
@@ -43,32 +43,13 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Hardcoded rows -->
-            <tr>
-                <td>1001</td><td>987654321V</td><td>123456789V</td><td>John Doe</td><td>+94712345678</td>
-                <td>Colombo</td><td>Kandy</td><td>5.5</td><td>Dispatched</td>
-                <td>
-                    <a href="#" class="button info">Read More</a>
-                    <a href="#" class="button warning">Edit</a>
-                    <a href="#" class="button danger">Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>1002</td><td>876543219V</td><td>234567891V</td><td>Jane Smith</td><td>+94787654321</td>
-                <td>Galle</td><td>Jaffna</td><td>10</td><td>Arrived at Destination</td>
-                <td>
-                    <a href="#" class="button info">Read More</a>
-                    <a href="#" class="button warning">Edit</a>
-                    <a href="#" class="button danger">Delete</a>
-                </td>
-            </tr>
 
             
             <!-- Fetch data dynamically from database -->
             <?php
-            include('connect.php');
+            include('config.php');
             $sqlSelect = "SELECT * FROM parcel";
-            $result = mysqli_query($conn2, $sqlSelect);
+            $result = mysqli_query($conn, $sqlSelect);
             while ($data = mysqli_fetch_array($result)) {
             ?>
             <tr>
@@ -82,18 +63,16 @@
                 <td><?php echo $data['weight']; ?></td>
                 <td><?php echo $data['status']; ?></td>
                 <td>
-                    <a href="view.php?id=<?php echo $data['parcel_id']; ?>" class="button info">Read More</a>
-                    <a href="edit.php?id=<?php echo $data['parcel_id']; ?>" class="button warning">Edit</a>
+                    <a href="edit.php?parcel_id=<?php echo $data['parcel_id']; ?>" class="button warning">Edit</a>
+                    <br>
+                    <br>
                     <a href="delete.php?id=<?php echo $data['parcel_id']; ?>" class="button danger">Delete</a>
                 </td>
             </tr>
             <?php } ?>
         </tbody>
         </table>
-        <br>
-        <div>
-            <a href="create.php" class="button primary">Add New Parcel</a>
-        </div> 
+
     </div>
 </body>
 </html>

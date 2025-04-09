@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
                     if ($role == 'customer') {
                         header('location: main.php');
                     } else {
-                        header('location: employee_dashboard.php');
+                        header('location: main.php');
                     }
                     exit();
                 } else {
