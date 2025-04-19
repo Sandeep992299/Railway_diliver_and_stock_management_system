@@ -1,6 +1,20 @@
 <?php 
 include 'auth_check.php'; 
 
+if (isset($_SESSION["create"])) {
+    echo '<div class="success-message">' . $_SESSION["create"] . '</div>';
+    unset($_SESSION["create"]); 
+}
+if (isset($_SESSION["update"])) {
+    echo '<div class="success-message">' . $_SESSION["update"] . '</div>';
+    unset($_SESSION["update"]);
+}
+if (isset($_SESSION["error"])) {
+    echo '<div class="error-message">' . $_SESSION["error"] . '</div>';
+    unset($_SESSION["error"]);
+}
+
+
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = [];
@@ -72,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
 
-            <form id="packageForm" method="POST" onsubmit="return validateForm()">
+            <form id="packageForm" method="POST" action="process.php" onsubmit="return validateForm()">
                 <h1>Generate QR Code for Package</h1>
                 
                 <label for="parcel_id">Parcel ID:</label>
