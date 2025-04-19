@@ -46,7 +46,7 @@
     <script>
         // Redirect after 4 seconds (matches the animation duration)
         setTimeout(function() {
-            window.location.href = "login.html"; 
+            window.location.href = "login.php"; 
         }, 4000);
     </script>
 

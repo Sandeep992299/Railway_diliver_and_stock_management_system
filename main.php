@@ -59,7 +59,7 @@
 
  <!-- Call to Action Buttons -->
 <section class="cta-buttons">
-    <button onclick="location.href='tracking.html'" class="cta-button track-button">Track Your Parcel <span class="arrow">→</span></button>
+    <button onclick="location.href='tracking.php'" class="cta-button track-button">Track Your Parcel <span class="arrow">→</span></button>
     <button onclick="scrollToTimetable()" class="cta-button timetable-button">View Train Time Table <span class="arrow">→</span></button>
     <button onclick="location.href='https://seatreservation.railway.gov.lk/mtktwebslr/'" class="cta-button book-button">Book a Ticket <span class="arrow">→</span></button>
 </section>
