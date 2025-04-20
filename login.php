@@ -105,7 +105,6 @@ if (isset($_POST['submit'])) {
     <title>Login Page</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="images/1.png" type="image/png">
-    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
