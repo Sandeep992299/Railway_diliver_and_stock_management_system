@@ -1,39 +1,40 @@
 <?php
-session_start(); 
+session_start();
 @include 'config.php';
+require 'vendor/autoload.php';
 
-// Check if the form is submitted
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if (isset($_POST['submit'])) {
-    // Validate input fields
     if (empty($_POST['userType']) || empty($_POST['email']) || empty($_POST['password'])) {
         $error[] = 'All fields are required!';
     } else {
-        // Get form data
         $userType = mysqli_real_escape_string($conn, $_POST['userType']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = $_POST['password']; 
+        $password = $_POST['password'];
 
-        // Determine table and columns based on user type
+        // Setting table and column names based on user type
         if ($userType == 'user') {
             $table = 'customer';
             $emailColumn = 'cus_email';
             $passwordColumn = 'cus_pass';
             $nameColumn = 'cus_name';
-            $idColumn = 'cus_id'; 
-            $role = 'customer'; 
+            $idColumn = 'cus_id'; // ID column for customer
+            $role = 'customer';
         } elseif ($userType == 'employee') {
             $table = 'employee';
             $emailColumn = 'emp_email';
             $passwordColumn = 'emp_pass';
             $nameColumn = 'emp_name';
-            $idColumn = 'emp_id'; 
-            $role = 'employee'; 
+            $idColumn = 'emp_id'; // ID column for employee
+            $role = 'employee';
         } else {
             $error[] = 'Invalid user type selected!';
         }
 
         if (!isset($error)) {
-            // Query to check if the user exists using prepared statement
+            // SQL query to get the user based on email
             $stmt = $conn->prepare("SELECT * FROM $table WHERE $emailColumn = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
@@ -42,23 +43,50 @@ if (isset($_POST['submit'])) {
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
 
-                // Verify password
-                if (password_verify($password, $row[$passwordColumn])) {
-                    // Set session variables
-                    $_SESSION['user_id'] = $row[$idColumn];
-                    $_SESSION['user_name'] = $row[$nameColumn];
-                    $_SESSION['user_email'] = $row[$emailColumn];
-                    $_SESSION['user_role'] = $role; 
+                // Ensure the row contains the necessary columns before accessing them
+                if (isset($row[$passwordColumn])) {
+                    if (password_verify($password, $row[$passwordColumn])) {
+                        // Store user information in session
+                        $_SESSION['temp_user'] = [
+                            'id' => $row[$idColumn], // Use dynamic ID column
+                            'name' => $row[$nameColumn],
+                            'email' => $row[$emailColumn],
+                            'role' => $role,
+                            'table' => $table
+                        ];
 
-                    // Redirect based on role
-                    if ($role == 'customer') {
-                        header('location: main.php');
+                        // Generate OTP
+                        $otp = rand(100000, 999999);
+                        $_SESSION['otp'] = $otp;
+
+                        // Send OTP via PHPMailer
+                        $mail = new PHPMailer(true);
+                        try {
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'kandyrailwaystationofficial@gmail.com'; 
+                            $mail->Password = 'nybp sxeg godn qjip'; 
+                            $mail->SMTPSecure = 'tls';
+                            $mail->Port = 587;
+
+                            $mail->setFrom('kandyrailwaystationofficial@gmail.com', 'Kandy Railway Station');
+                            $mail->addAddress($email, $row[$nameColumn]);
+                            $mail->isHTML(true);
+                            $mail->Subject = 'Your OTP Code';
+                            $mail->Body = "<h3>Your OTP is: <strong>$otp</strong></h3><p>Do not share this code with anyone.</p>";
+
+                            $mail->send();
+                            header("Location: verify.php");
+                            exit();
+                        } catch (Exception $e) {
+                            $error[] = "Mailer Error: {$mail->ErrorInfo}";
+                        }
                     } else {
-                        header('location: main.php');
+                        $error[] = 'Incorrect email or password!';
                     }
-                    exit();
                 } else {
-                    $error[] = 'Incorrect email or password!';
+                    $error[] = 'Database column for password does not exist.';
                 }
             } else {
                 $error[] = 'User not found!';
@@ -75,6 +103,9 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="images/1.png" type="image/png">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>

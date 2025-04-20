@@ -112,13 +112,16 @@ h1 {
 .register-link {
     margin-top: 15px;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .register-link a {
     color: #8de149;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .register-link a:hover {
     text-decoration: underline;
+    cursor:pointer;
 }
