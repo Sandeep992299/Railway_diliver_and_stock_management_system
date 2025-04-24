@@ -1,5 +1,18 @@
-<?php include 'auth_check.php'; ?>
+<?php 
+include 'auth_check.php'; 
+include 'config.php';
 
+// Fetch latest mail stock
+$mailQuery = mysqli_query($conn, "SELECT mail_pack_remain FROM mail_pack ORDER BY mail_pack_id DESC LIMIT 1");
+$mailData = mysqli_fetch_assoc($mailQuery);
+$mailRemain = $mailData ? $mailData['mail_pack_remain'] : 0;
+
+// Fetch latest fertilizer stock
+$fertQuery = mysqli_query($conn, "SELECT fert_remain FROM fertilizer ORDER BY fert_id DESC LIMIT 1");
+$fertData = mysqli_fetch_assoc($fertQuery);
+$fertRemainPacks = $fertData ? $fertData['fert_remain'] : 0;
+$fertRemainKg = $fertRemainPacks * 50;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +23,23 @@
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="govStock.css">
+    <style>
+        .stock-container {
+            width: 100%;
+            height: 25px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .stock-bar {
+            height: 100%;
+            background-color: #4CAF50;
+            text-align: center;
+            color: white;
+            line-height: 25px;
+        }
+    </style>
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -38,39 +68,40 @@
         <header>
             <h1>Government Stock Management</h1>
         </header>
-        
+
         <!-- Mail Stock Management -->
-<section class="stock-management">
-    <h2><b>Mail and Packages Stock Management</b></h2><br>
-    <div class="stock-container" id="mailStorage">
-        <div class="stock-bar" id="mailBar"></div>
-    </div>
-    <p>Current Storage: <span id="mailStorageValue">0</span>/1000 (0%)</p><br>
-    
-    <!-- Input for Stock Quantity -->
-    <input type="number" id="mailInput" placeholder="Amount" min="1" />
-    
-    <!-- Buttons for Add and Remove -->
-    <button onclick="updateMailStorage(1)">Add</button>
-    <button onclick="updateMailStorage(-1)">Remove</button>
-</section><br><br>
+        <section class="stock-management">
+            <h2><b>Mail and Packages Stock Management</b></h2><br>
+            <form action="mail_process.php" method="POST">
+                <input type="number" name="mail_amount" placeholder="Amount" min="1" required />
+                <input type="hidden" name="action" id="mailAction" />
+                <button type="submit" onclick="document.getElementById('mailAction').value='add'">Add</button>
+                <button type="submit" onclick="document.getElementById('mailAction').value='remove'">Remove</button>
+            </form>
+            <div class="stock-container">
+                <div class="stock-bar" id="mailBar" style="width: <?= ($mailRemain / 1000 * 100) ?>%;"></div>
+            </div>
+            <p>Current Storage: <span id="mailStorageValue"><?= $mailRemain ?></span>/1000 (<?= number_format(($mailRemain / 1000 * 100), 2) ?>%)</p>
+        </section><br><br>
 
-<!-- Fertilizer Stock Management -->
-<section class="stock-management">
-    <h2><b>Fertilizer Stock Management</b></h2><br>
-    <div class="stock-container" id="fertilizerStorage">
-        <div class="stock-bar" id="fertilizerBar"></div>
-    </div>
-    <p>Current Storage: <span id="fertilizerStorageValue">0 kg</span>/100000 kg (0%)</p><br>
-    
-    <!-- Input for Stock Quantity -->
-    <input type="number" id="fertilizerInput" placeholder="Amount (Packs)" min="1" />
-    
-    <!-- Buttons for Add and Remove -->
-    <button onclick="updateFertilizerStorage(1)">Add Pack</button>
-    <button onclick="updateFertilizerStorage(-1)">Remove Pack</button>
-</section>
-
+        <!-- Fertilizer Stock Management -->
+        <section class="stock-management">
+            <h2><b>Fertilizer Stock Management</b></h2><br>
+            <form action="fertilizer_process.php" method="POST">
+                <input type="number" name="fert_packs" placeholder="Amount (Packs)" min="1" required />
+                <input type="hidden" name="action" id="fertAction" />
+                <button type="submit" onclick="document.getElementById('fertAction').value='add'">Add Pack</button>
+                <button type="submit" onclick="document.getElementById('fertAction').value='remove'">Remove Pack</button>
+            </form>
+            <div class="stock-container">
+                <div class="stock-bar" id="fertilizerBar" style="width: <?= ($fertRemainKg / 100000 * 100) ?>%;"></div>
+            </div>
+            <p>Current Storage: 
+                <span id="fertilizerStorageValue"><?= $fertRemainKg ?> kg</span>/100000 kg 
+                (<?= number_format(($fertRemainKg / 100000 * 100), 2) ?>%) - 
+                <?= $fertRemainPacks ?> packs
+            </p>
+        </section>
     </div>
 
     <!-- Footer -->
@@ -110,8 +141,10 @@
             <h3>Copyright &COPY;2023 All Rights Reserved. Nature Guide Ceylon</h3>
         </section>
     </footer>
-
-    <script src="main.js" defer></script>
-    <script src="govStock.js" defer></script>
 </body>
 </html>
+
+
+
+
+

@@ -1,4 +1,5 @@
 <?php include 'auth_check.php'; ?>
+<?php include 'config.php'; // Including DB connection ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +11,9 @@
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="fuel.css">
-   
 </head>
-<body>Railway_Storage_Management_System
+<body>
+    Railway_Storage_Management_System
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="logo">
@@ -46,14 +47,28 @@
                 <div class="fuel-level" id="fuelLevel"></div>
                 <div class="tank-border"></div>
             </div>
+            
+            <!-- Display current fuel level -->
+            <?php
+                // Get the current fuel level
+                $query = "SELECT fuel_remain FROM fuel ORDER BY fuel_id DESC LIMIT 1";
+                $result = mysqli_query($conn, $query);
+                $row = mysqli_fetch_assoc($result);
+                $currentFuel = $row ? (int)$row['fuel_remain'] : 0;
+            ?>
+            
+            <p>Current Fuel: <span id="fuelLiters"><?php echo $currentFuel; ?> L</span> | 
+            <span id="fuelPercentage"><?php echo ($currentFuel / 20000) * 100; ?>%</span></p><br><br>
+            
+            <!-- Fuel control form -->
             <div class="controls">
-                <input type="number" id="fuelInput" placeholder="Enter Liters" min="0">
-                <button onclick="changeFuel('add')">Add Fuel</button>
-                <button onclick="changeFuel('remove')">Remove Fuel</button>
+                <form action="fuel_process.php" method="post">
+                    <input type="number" name="volume" id="fuelInput" placeholder="Enter Liters" min="0" required>
+                    <button type="submit" name="action" value="add">Add Fuel</button>
+                    <button type="submit" name="action" value="remove">Remove Fuel</button>
+                </form>
             </div>
-            <p>Current Fuel: <span id="fuelLiters">0 L</span> | <span id="fuelPercentage">0%</span></p><br><br>
         </div>
-
     </div>
 
     <!-- Footer -->
@@ -98,3 +113,18 @@
     <script src="fuel.js" defer></script>
 </body>
 </html>
+<script>
+    // Function to update the fuel level display
+    function updateFuelLevel(fuel) {
+        const fuelLevel = document.getElementById('fuelLevel');
+        const fuelLiters = document.getElementById('fuelLiters');
+        const fuelPercentage = document.getElementById('fuelPercentage');
+
+        fuelLevel.style.height = (fuel / 20000) * 100 + '%';
+        fuelLiters.textContent = fuel + ' L';
+        fuelPercentage.textContent = ((fuel / 20000) * 100).toFixed(2) + '%';
+    }
+
+    // Initial call to set the fuel level on page load
+    updateFuelLevel(<?php echo $currentFuel; ?>);
+</script>

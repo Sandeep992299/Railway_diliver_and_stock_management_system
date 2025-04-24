@@ -21,13 +21,13 @@ function updateMailStorage(amount) {
 
 
 // Initial storage values
-let fertilizerStorageKg = 0;  // in kg
-let fertilizerStoragePacks = 0; // in packs (50 kg per pack)
+let fertilizerStorageKg = 0;  
+let fertilizerStoragePacks = 0; 
 
 // Update UI for Fertilizer Storage
 function updateFertilizerStorageUI() {
-    const maxStorageKg = 100000;  // Maximum in kg
-    const maxStoragePacks = 2000; // Maximum in packs (2000 * 50 kg)
+    const maxStorageKg = 100000;  
+    const maxStoragePacks = 2000; 
     const percentKg = (fertilizerStorageKg / maxStorageKg) * 100;
     const percentPacks = (fertilizerStoragePacks / maxStoragePacks) * 100;
 
@@ -39,8 +39,8 @@ function updateFertilizerStorageUI() {
 function updateFertilizerStorage(amount) {
     const packs = parseInt(document.getElementById('fertilizerInput').value) || 0;
 
-    // Update the storage by the number of packs entered (each pack is 50kg)
-    const weightChange = packs * 50; // Each pack is 50kg
+    // Update the storage by the number of packs entered 
+    const weightChange = packs * 50; 
 
     // Update the storage, ensuring it does not exceed the maximum limit
     fertilizerStorageKg = Math.min(100000, Math.max(0, fertilizerStorageKg + (weightChange * amount)));
