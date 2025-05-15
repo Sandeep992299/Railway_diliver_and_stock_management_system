@@ -28,7 +28,7 @@
                 <li><a href="notifications.php">Notifications</a></li>
                 <li><a href="reports.php">Reports</a></li>
                 <li><a href="parcel_t.php">Customer Parcels Management</a></li>
-                <li><a href="govStock_t.php">Gov Stock Management</a></li>
+                <li><a href="govStock_t.php">Government Stock Management</a></li>
             </ul>
             <div class="auth-buttons">
                 <button class="logout" onclick="location.href='login.php'">Log out</button>
