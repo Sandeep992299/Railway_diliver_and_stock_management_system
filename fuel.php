@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="fuel.css">
 </head>
 <body>
-    Railway_Storage_Management_System
+    
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="logo">
@@ -22,7 +22,7 @@
         <nav>
             <ul>
                 <li><a href="main.php">Home</a></li>
-                <li><a href="customer_Parcel.php">Customer Parcel Management</a></li>
+                <li><a href="customer_parcel.php">Customer Parcel Management</a></li>
                 <li><a href="govStock.php">Government Stock Management</a></li>
                 <li><a href="tracking.php">Parcel Tracking</a></li>
                 <li><a href="fuel.php">Fuel Stock</a></li>

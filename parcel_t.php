@@ -29,7 +29,7 @@ $result = mysqli_query($conn, $sqlSelect);
         <header class="header">
             <h1>Customer Parcel List</h1>
             <div>
-                <a href="main.php">Back</a>
+                <a href="admin.php">Back</a>
             </div>
         </header>
 
