@@ -9,7 +9,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="reports.css">
+    <link rel="stylesheet" href="reports.css?v=1.0">
    
 </head>
 <body>
@@ -39,10 +39,20 @@
         <header>
             <h1>Reports</h1>
         </header>
+        <br>
+        <br>
+        <br>
+        <section class="report-buttons">
+            <button onclick="location.href='parcel_rep.php'">Customer Parcel Reports</button>
+            <button onclick="location.href='report_gov_stock.php'">Government Stock Reports</button>
+            <button onclick="location.href='report_fuel.php'">Fuel Reports</button>
+        </section>
 
         
 
     </div>
+
+
 
     <!-- Footer -->
     <footer class="footer">

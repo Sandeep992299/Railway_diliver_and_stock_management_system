@@ -151,5 +151,30 @@ body {
     margin-top: 20px;
   }
   
+  .report-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    align-items: center;
+    margin-left: 500px;
+}
+
+.report-buttons button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.report-buttons button:hover {
+    background-color: #0056b3;
+}
+
   
   

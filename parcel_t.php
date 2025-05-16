@@ -21,8 +21,6 @@ $result = mysqli_query($conn, $sqlSelect);
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="styles3.css?v=1.0">
-
-
 </head>
 <body>
     <div class="container">
@@ -61,6 +59,8 @@ $result = mysqli_query($conn, $sqlSelect);
                     <th>Pickup Location</th>
                     <th>Drop Station</th>
                     <th>Weight (kg)</th>
+                    <th>Recieved Date</th>
+                    <th>Payment (LKR)</th>
                     <th>Status</th>
                     <th>Options</th>
                 </tr>
@@ -76,6 +76,8 @@ $result = mysqli_query($conn, $sqlSelect);
                     <td><?php echo $data['pickup']; ?></td>
                     <td><?php echo $data['dropoff']; ?></td>
                     <td><?php echo $data['weight']; ?></td>
+                    <td><?php echo $data['recieved_date']; ?></td>
+                    <td><?php echo $data['payment']; ?></td>
                     <td><?php echo $data['status']; ?></td>
                     <td>
                         <a href="edit.php?parcel_id=<?php echo $data['parcel_id']; ?>" class="button warning">Edit</a>
@@ -86,7 +88,7 @@ $result = mysqli_query($conn, $sqlSelect);
                 <?php } ?>
                 <?php if (mysqli_num_rows($result) === 0) { ?>
                 <tr>
-                    <td colspan="10">No parcels found for the given dropoff location.</td>
+                    <td colspan="12">No parcels found for the given dropoff location.</td>
                 </tr>
                 <?php } ?>
             </tbody>

@@ -1,0 +1,96 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #8de149, #b7f780);
+    margin: 0;
+    padding: 0;
+}
+
+.report-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+}
+
+.report-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.report-header h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #3498db;
+    font-size: 14px;
+}
+
+.filter-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filter-form label {
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.filter-form input,
+.filter-form button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.filter-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.filter-form button:hover {
+    background-color: #2980b9;
+}
+
+.report-body {
+    padding-top: 10px;
+}
+
+.report-entry {
+    background: #ecf6ff;
+    padding: 20px;
+    border-left: 6px solid #3498db;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.report-entry h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #2d3436;
+}
+
+.report-entry p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.no-data {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+    margin-top: 30px;
+}

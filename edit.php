@@ -1,5 +1,5 @@
 <?php 
-include("config.php"); // Database connection
+include("config.php"); 
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +51,11 @@ include("config.php"); // Database connection
                     </div>
 
                     <div class="form-element">
+                        <label>Received Date:</label>
+                        <input type="date" name="recieved_date" value="<?php echo $row['recieved_date']; ?>" required>
+                    </div>
+
+                    <div class="form-element">
                         <label>Pickup Location:</label>
                         <input type="text" name="pickup" value="<?php echo $row['pickup']; ?>" required>
                     </div>
@@ -63,6 +68,11 @@ include("config.php"); // Database connection
                     <div class="form-element">
                         <label>Weight (kg):</label>
                         <input type="text" name="weight" value="<?php echo $row['weight']; ?>" required>
+                    </div>
+
+                    <div class="form-element">
+                        <label>Payment (LKR):</label>
+                        <input type="number" step="0.01" name="payment" value="<?php echo $row['payment']; ?>" required>
                     </div>
 
                     <div class="form-element">

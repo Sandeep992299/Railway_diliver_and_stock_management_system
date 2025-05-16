@@ -25,9 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['receiver_id'])) $errors[] = "Receiver NIC is required.";
     if (empty($_POST['receiver'])) $errors[] = "Receiver Name is required.";
     if (empty($_POST['tel'])) $errors[] = "Phone Number is required.";
+    if (empty($_POST['date'])) $errors[] = "Date is required.";
     if (empty($_POST['pickup'])) $errors[] = "Pickup Location is required.";
     if (empty($_POST['drop'])) $errors[] = "Drop Station is required.";
     if (empty($_POST['weight'])) $errors[] = "Weight is required.";
+    if (empty($_POST['pay'])) $errors[] = "Payment is required.";
     if (empty($_POST['status'])) $errors[] = "Status selection is required.";
 
     if (empty($errors)) {
@@ -106,6 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="tel">Phone Number:</label>
                 <input type="tel" id="tel" name="tel" required>
 
+                <label for="date">Recieved Date:</label>
+                <input type="date" id="date" name="date" required>
+
                 <label for="pickup">Pickup Location:</label>
                 <input type="text" id="pickup" name="pickup" required>
 
@@ -114,6 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <label for="weight">Weight (kg):</label>
                 <input type="text" id="weight" name="weight" step="0.01" min="0.1" required>
+
+                <label for="pay">Payment (Rs):</label>
+                <input type="text" id="pay" name="pay" readonly required>
 
                 <label for="status">Status:</label>
                 <select id="status" name="status" required>
@@ -178,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script>
         function validateForm() {
-            let requiredFields = ["id", "sender_id", "receiver_id", "receiver", "tel", "pickup", "drop", "weight", "status"];
+            let requiredFields = ["id", "sender_id", "receiver_id", "receiver", "tel", "date", "pickup", "drop", "weight", "pay", "status"];
             for (let field of requiredFields) {
                 if (document.getElementById(field).value.trim() === "") {
                     alert("Please fill all fields before submitting.");
@@ -187,6 +195,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             return true;
         }
+
+        document.getElementById("weight").addEventListener("input", function () {
+            let weight = parseFloat(this.value);
+            let ratePerKg = 50;
+            if (!isNaN(weight) && weight > 0) {
+                document.getElementById("pay").value = (weight * ratePerKg).toFixed(2);
+            } else {
+                document.getElementById("pay").value = "";
+        }
+        });
     </script>
 </body>
 </html>
