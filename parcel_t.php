@@ -56,6 +56,7 @@ $result = mysqli_query($conn, $sqlSelect);
                     <th>Receiver NIC</th>
                     <th>Receiver Name</th>
                     <th>Phone Number</th>
+                    <th>Receiver Email</th>
                     <th>Pickup Location</th>
                     <th>Drop Station</th>
                     <th>Weight (kg)</th>
@@ -73,6 +74,7 @@ $result = mysqli_query($conn, $sqlSelect);
                     <td><?php echo $data['rec_nic']; ?></td>
                     <td><?php echo $data['rec_name']; ?></td>
                     <td><?php echo $data['rec_phone']; ?></td>
+                    <td><?php echo $data['rec_email']; ?></td>
                     <td><?php echo $data['pickup']; ?></td>
                     <td><?php echo $data['dropoff']; ?></td>
                     <td><?php echo $data['weight']; ?></td>

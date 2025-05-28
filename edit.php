@@ -51,6 +51,11 @@ include("config.php");
                     </div>
 
                     <div class="form-element">
+                        <label>Receiver Email:</label>
+                        <input type="text" name="email" value="<?php echo $row['rec_email']; ?>" required>
+                    </div>
+
+                    <div class="form-element">
                         <label>Received Date:</label>
                         <input type="date" name="recieved_date" value="<?php echo $row['recieved_date']; ?>" required>
                     </div>
@@ -80,7 +85,7 @@ include("config.php");
                         <select name="status">
                             <option value="Ready for Dispatch" <?php if ($row['status'] == "Ready for Dispatch") echo "selected"; ?>>Ready for Dispatch</option>
                             <option value="Dispatched" <?php if ($row['status'] == "Dispatched") echo "selected"; ?>>Dispatched</option>
-                            <option value="Arrives at Destination" <?php if ($row['status'] == "Arrives at Destination") echo "selected"; ?>>Arrives at Destination</option>
+                            <option value="Arrived at Destination" <?php if ($row['status'] == "Arrived at Destination") echo "selected"; ?>>Arrived at Destination</option>
                         </select>
                     </div>
 

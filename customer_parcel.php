@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['receiver_id'])) $errors[] = "Receiver NIC is required.";
     if (empty($_POST['receiver'])) $errors[] = "Receiver Name is required.";
     if (empty($_POST['tel'])) $errors[] = "Phone Number is required.";
+    if (empty($_POST['email'])) $errors[] = "Receiver Email is required.";
     if (empty($_POST['date'])) $errors[] = "Date is required.";
     if (empty($_POST['pickup'])) $errors[] = "Pickup Location is required.";
     if (empty($_POST['drop'])) $errors[] = "Drop Station is required.";
@@ -107,6 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <label for="tel">Phone Number:</label>
                 <input type="tel" id="tel" name="tel" required>
+
+                <label for="receiver">Receiver Email:</label>
+                <input type="text" id="email" name="email" required>
 
                 <label for="date">Recieved Date:</label>
                 <input type="date" id="date" name="date" required>

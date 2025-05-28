@@ -19,6 +19,19 @@ $sql = "
     ORDER BY recieved_date DESC
 ";
 $result = mysqli_query($conn, $sql);
+
+// Prepare data for Chart.js
+$dates = [];
+$parcelCounts = [];
+$weights = [];
+$payments = [];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $dates[] = $row['recieved_date'];
+    $parcelCounts[] = $row['total_parcels'];
+    $weights[] = $row['total_weight'];
+    $payments[] = $row['total_payment'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +41,7 @@ $result = mysqli_query($conn, $sql);
     <title>Parcel Revenue Report</title>
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="parcel_rep.css?v=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div class="report-container">
@@ -45,17 +59,93 @@ $result = mysqli_query($conn, $sql);
         <button type="submit">Generate Report</button>
     </form>
 
-    <!-- Report Output -->
+    <!-- Report Output as Chart -->
     <section class="report-body">
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                <div class="report-entry">
-                    <h2>📅 Date: <?php echo $row['recieved_date']; ?></h2>
-                    <p><strong>Total Parcels:</strong> <?php echo $row['total_parcels']; ?></p>
-                    <p><strong>Total Weight:</strong> <?php echo number_format($row['total_weight'], 2); ?> kg</p>
-                    <p><strong>Total Payment:</strong> Rs. <?php echo number_format($row['total_payment'], 2); ?></p>
-                </div>
-            <?php endwhile; ?>
+        <?php if (!empty($dates)): ?>
+            <canvas id="parcelChart" width="800" height="400"></canvas>
+            <script>
+                const ctx = document.getElementById('parcelChart').getContext('2d');
+
+                const parcelChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: <?php echo json_encode($dates); ?>,
+                        datasets: [
+                            {
+                                label: 'Total Parcels',
+                                data: <?php echo json_encode($parcelCounts); ?>,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Total Weight (kg)',
+                                data: <?php echo json_encode($weights); ?>,
+                                backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                                borderColor: 'rgba(255, 206, 86, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Parcel Count and Weight per Day'
+                            },
+                            legend: {
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    afterBody: function(context) {
+                                        const index = context[0].dataIndex;
+                                        const payments = <?php echo json_encode($payments); ?>;
+                                        return 'Payment: Rs. ' + parseFloat(payments[index]).toFixed(2);
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Value'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                      
+                                }
+                            }
+                        }
+                    },
+                    
+                    plugins: [{
+                        id: 'paymentLabel',
+                        afterDatasetsDraw(chart, args, pluginOptions) {
+                            const { ctx, chartArea: {bottom}, scales: {x}, data } = chart;
+                            const payments = <?php echo json_encode($payments); ?>;
+                            ctx.save();
+                            ctx.fillStyle = '#000';
+                            ctx.font = '12px sans-serif';
+                            ctx.textAlign = 'center';
+
+                            data.labels.forEach((label, index) => {
+                                const xPos = x.getPixelForValue(index);
+                                ctx.fillText('Rs. ' + parseFloat(payments[index]).toFixed(2), xPos, bottom + 35);
+                            });
+
+                            ctx.restore();
+                        }
+                    }]
+
+                });
+            </script>
         <?php else: ?>
             <p class="no-data">No parcel data available for the selected date range.</p>
         <?php endif; ?>

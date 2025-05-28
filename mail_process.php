@@ -9,20 +9,23 @@ $currentRemain = $row ? (int)$row['mail_pack_remain'] : 0;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount = (int)$_POST['mail_amount'];
     $action = $_POST['action']; // 'add' or 'remove'
+    $mail_date = $_POST['mail_date']; // Get the date from the form
 
-    if ($amount > 0) {
+    if ($amount > 0 && !empty($mail_date)) {
         if ($action === 'add') {
             $newRemain = $currentRemain + $amount;
             $status = 'added';
+            $payment = $amount * 20;
         } elseif ($action === 'remove') {
             $newRemain = max(0, $currentRemain - $amount);
             $status = 'removed';
+            $payment = 0;
         } else {
             die('Invalid action.');
         }
 
-        $stmt = $conn->prepare("INSERT INTO mail_pack (mail_pack_amount, mail_pack_status, mail_pack_remain) VALUES (?, ?, ?)");
-        $stmt->bind_param("isi", $amount, $status, $newRemain);
+        $stmt = $conn->prepare("INSERT INTO mail_pack (mail_pack_amount, mail_pack_status, mail_pack_remain, mail_pay, mail_date) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("isiis", $amount, $status, $newRemain, $payment, $mail_date);
         $stmt->execute();
         $stmt->close();
     }

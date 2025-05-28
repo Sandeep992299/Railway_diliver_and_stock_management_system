@@ -44,8 +44,8 @@
         <br>
         <section class="report-buttons">
             <button onclick="location.href='parcel_rep.php'">Customer Parcel Reports</button>
-            <button onclick="location.href='report_gov_stock.php'">Government Stock Reports</button>
-            <button onclick="location.href='report_fuel.php'">Fuel Reports</button>
+            <button onclick="location.href='govStock_rep.php'">Government Stock Reports</button>
+            <button onclick="location.href='fuel_rep.php'">Fuel Reports</button>
         </section>
 
         

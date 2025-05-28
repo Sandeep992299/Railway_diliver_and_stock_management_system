@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="manifest.json">
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css?v=1.0">
    
 </head>
 <body>

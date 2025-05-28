@@ -18,11 +18,12 @@ body {
 .report-header {
     text-align: center;
     margin-bottom: 20px;
+    
 }
 
 .report-header h1 {
     font-size: 28px;
-    color: #2c3e50;
+    color: #fff;
     margin-bottom: 5px;
 }
 
@@ -94,3 +95,47 @@ body {
     color: #999;
     margin-top: 30px;
 }
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+.report-header {
+    text-align: center;
+    background-color: #2d3234;
+    color: #fff;
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #bee925;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.filter-form {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.filter-form input,
+.filter-form button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    font-size: 16px;
+}
+
+.report-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.no-data {
+    color: red;
+    font-weight: bold;
+}
+

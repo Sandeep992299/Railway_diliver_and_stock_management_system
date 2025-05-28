@@ -1,5 +1,4 @@
-<?php 
-include 'auth_check.php'; 
+<?php include 'auth_check.php'; 
 include 'config.php';
 
 // Fetch latest mail stock
@@ -22,24 +21,8 @@ $fertRemainKg = $fertRemainPacks * 50;
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="images/1.png" type="image/png">
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="govStock.css">
-    <style>
-        .stock-container {
-            width: 100%;
-            height: 25px;
-            background-color: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        .stock-bar {
-            height: 100%;
-            background-color: #4CAF50;
-            text-align: center;
-            color: white;
-            line-height: 25px;
-        }
-    </style>
+    <link rel="stylesheet" href="govStock.css?v=1.0">
+
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -74,6 +57,7 @@ $fertRemainKg = $fertRemainPacks * 50;
             <h2><b>Mail and Packages Stock Management</b></h2><br>
             <form action="mail_process.php" method="POST">
                 <input type="number" name="mail_amount" placeholder="Amount" min="1" required />
+                <input type="date" name="mail_date" required />
                 <input type="hidden" name="action" id="mailAction" />
                 <button type="submit" onclick="document.getElementById('mailAction').value='add'">Add</button>
                 <button type="submit" onclick="document.getElementById('mailAction').value='remove'">Remove</button>
@@ -89,6 +73,7 @@ $fertRemainKg = $fertRemainPacks * 50;
             <h2><b>Fertilizer Stock Management</b></h2><br>
             <form action="fertilizer_process.php" method="POST">
                 <input type="number" name="fert_packs" placeholder="Amount (Packs)" min="1" required />
+                <input type="date" name="fert_date" required />
                 <input type="hidden" name="action" id="fertAction" />
                 <button type="submit" onclick="document.getElementById('fertAction').value='add'">Add Pack</button>
                 <button type="submit" onclick="document.getElementById('fertAction').value='remove'">Remove Pack</button>
@@ -143,8 +128,3 @@ $fertRemainKg = $fertRemainPacks * 50;
     </footer>
 </body>
 </html>
-
-
-
-
-

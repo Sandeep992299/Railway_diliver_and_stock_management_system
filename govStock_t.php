@@ -36,6 +36,8 @@ $fert_result = mysqli_query($conn, $fert_query);
                 <th>Amount</th>
                 <th>Status</th>
                 <th>Remaining</th>
+                <th>Date</th>
+                <th>Payment</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,6 +48,8 @@ $fert_result = mysqli_query($conn, $fert_query);
                     <td><?php echo $mail['mail_pack_amount']; ?></td>
                     <td><?php echo $mail['mail_pack_status']; ?></td>
                     <td><?php echo $mail['mail_pack_remain']; ?></td>
+                    <td><?php echo $mail['mail_date']; ?></td>
+                    <td><?php echo $mail['mail_pay']; ?></td>
                     <td>
                         <a href="edit_mail.php?id=<?php echo $mail['mail_pack_id']; ?>" class="button warning">Edit</a><br><br>
                         <a href="delete_mail.php?id=<?php echo $mail['mail_pack_id']; ?>" class="button danger">Delete</a>
@@ -69,6 +73,8 @@ $fert_result = mysqli_query($conn, $fert_query);
                 <th>Packs</th>
                 <th>Status</th>
                 <th>Remaining</th>
+                <th>Date</th>
+                <th>Payment</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -79,6 +85,8 @@ $fert_result = mysqli_query($conn, $fert_query);
                     <td><?php echo $fert['fert_packs']; ?></td>
                     <td><?php echo $fert['fert_status']; ?></td>
                     <td><?php echo $fert['fert_remain']; ?></td>
+                    <td><?php echo $fert['fert_date']; ?></td>
+                    <td><?php echo $fert['fert_pay']; ?></td>
                     <td>
                         <a href="edit_fert.php?id=<?php echo $fert['fert_id']; ?>" class="button warning">Edit</a><br><br>
                         <a href="delete_fert.php?id=<?php echo $fert['fert_id']; ?>" class="button danger">Delete</a>

@@ -9,20 +9,23 @@ $currentRemain = $row ? (int)$row['fert_remain'] : 0;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $packs = (int)$_POST['fert_packs'];
     $action = $_POST['action']; // 'add' or 'remove'
+    $fert_date = $_POST['fert_date']; // Get the selected date from form
 
-    if ($packs > 0) {
+    if ($packs > 0 && !empty($fert_date)) {
         if ($action === 'add') {
             $newRemain = $currentRemain + $packs;
             $status = 'added';
+            $payment = $packs * 30;
         } elseif ($action === 'remove') {
             $newRemain = max(0, $currentRemain - $packs);
             $status = 'removed';
+            $payment = 0;
         } else {
             die('Invalid action.');
         }
 
-        $stmt = $conn->prepare("INSERT INTO fertilizer (fert_packs, fert_status, fert_remain) VALUES (?, ?, ?)");
-        $stmt->bind_param("isi", $packs, $status, $newRemain);
+        $stmt = $conn->prepare("INSERT INTO fertilizer (fert_packs, fert_status, fert_remain, fert_pay, fert_date) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("isiis", $packs, $status, $newRemain, $payment, $fert_date);
         $stmt->execute();
         $stmt->close();
     }
